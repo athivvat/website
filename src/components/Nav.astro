@@ -1,0 +1,22 @@
+---
+const { pathname } = Astro.url;
+
+const links = [
+  { href: "/", label: "Home", active: pathname === "/" },
+  { href: "/blog", label: "Blog", active: pathname === "/blog" },
+];
+---
+
+<nav class="rounded-full px-6 flex items-center gap-6 fixed top-6 left-1/2 -translate-x-1/2 backdrop-blur-sm backdrop-filter bg-opacity-50 shadow-lg border text-sm bg-neutral-950/80 border-neutral-200/20 z-50">
+  {links.map(({ href, label, active }) => (
+    <a
+      href={href}
+      class={`relative py-3 ${active ? 'text-neutral-100' : 'text-neutral-500'}`}
+    >
+      {label}
+      {active && (
+        <span class="w-full h-px bg-current absolute left-0 top-full" />
+      )}
+    </a>
+  ))}
+</nav>

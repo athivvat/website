@@ -1,0 +1,47 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const posts = [
+  {
+    title: "Moravec's paradox: The human capabilities landscape",
+    date: "01/06",
+    slug: "moravecs-paradox-the-human-capabilities-landscape",
+  },
+  {
+    title: "The AI company landscape",
+    date: "01/05",
+    slug: "the-ai-company-landscape",
+  },
+];
+---
+
+<Layout>
+  <main class="py-36">
+    <div
+      class="prose prose-neutral dark:prose-invert mx-auto prose-hr:m-0 prose-p:m-0"
+    >
+      <header class="space-y-2 mb-16">
+        <h1 class="text-2xl font-medium m-0">Blog</h1>
+        <p class="m-0 text-neutral-400">Thoughts, ideas, and learning.</p>
+      </header>
+      <div class="mt-8 grid gap-4">
+        {
+          posts.map((post) => (
+            <a
+              href={`/blog/${post.slug}`}
+              class="flex items-baseline gap-4 no-underline text-inherit font-normal group transition-colors sm:truncate"
+            >
+              <p class="sm:truncate text-neutral-100 group-hover:text-blue-600 transition-colors">
+                {post.title}
+              </p>
+              <hr class="hidden sm:block min-w-7 flex-1 group-hover:border-blue-500 transition-colors" />
+              <p class="hidden sm:block shrink-0 text-sm group-hover:text-blue-500 transition-colors">
+                {post.date}
+              </p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </main>
+</Layout>

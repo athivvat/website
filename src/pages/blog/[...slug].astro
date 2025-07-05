@@ -1,0 +1,35 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import { render } from "astro:content";
+import BlogLayout from "../../layouts/BlogLayout.astro";
+
+type Props = CollectionEntry<"blog">;
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: post,
+  }));
+}
+
+const post = Astro.props;
+const { Content } = await render(post);
+
+// Extract headings from the content
+const headings =
+  post.body?.match(/^#{2,3}\s+(.+)$/gm)?.map((heading) => {
+    const depth = heading.match(/^#+/)?.[0].length ?? 2;
+    const text = heading.replace(/^#+\s+/, "");
+    const slug = text
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/-+$/, "");
+    return { depth, slug, text };
+  }) ?? [];
+---
+
+<BlogLayout {...post.data} headings={headings}>
+  <Content />
+</BlogLayout>

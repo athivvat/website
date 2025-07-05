@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #000000;
+  --color-card: #ffffff;
+  --color-card-foreground: #000000;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #000000;
+  --color-primary: #000000;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f4f4f5;
+  --color-secondary-foreground: #000000;
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #6b7280;
+  --color-accent: #f4f4f5;
+  --color-accent-foreground: #000000;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #e5e7eb;
+  --color-input: #e5e7eb;
+  --color-ring: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  @theme {
+    --color-background: #000000;
+    --color-foreground: #ffffff;
+    --color-card: #0a0a0a;
+    --color-card-foreground: #ffffff;
+    --color-popover: #0a0a0a;
+    --color-popover-foreground: #ffffff;
+    --color-primary: #ffffff;
+    --color-primary-foreground: #000000;
+    --color-secondary: #1a1a1a;
+    --color-secondary-foreground: #ffffff;
+    --color-muted: #1a1a1a;
+    --color-muted-foreground: #9ca3af;
+    --color-accent: #1a1a1a;
+    --color-accent-foreground: #ffffff;
+    --color-destructive: #dc2626;
+    --color-destructive-foreground: #ffffff;
+    --color-border: #262626;
+    --color-input: #262626;
+    --color-ring: #ffffff;
+  }
+}
+
+/* Dark theme class for manual toggling */
+.dark {
+  --color-background: #000000;
+  --color-foreground: #ffffff;
+  --color-card: #0a0a0a;
+  --color-card-foreground: #ffffff;
+  --color-popover: #0a0a0a;
+  --color-popover-foreground: #ffffff;
+  --color-primary: #ffffff;
+  --color-primary-foreground: #000000;
+  --color-secondary: #1a1a1a;
+  --color-secondary-foreground: #ffffff;
+  --color-muted: #1a1a1a;
+  --color-muted-foreground: #9ca3af;
+  --color-accent: #1a1a1a;
+  --color-accent-foreground: #ffffff;
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #262626;
+  --color-input: #262626;
+  --color-ring: #ffffff;
+}
+
+/* Apply the background color to the body */
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Optional: Add some accent colors for better theming */
+@theme {
+  --color-blue: #3b82f6;
+  --color-green: #10b981;
+  --color-yellow: #f59e0b;
+  --color-purple: #8b5cf6;
+  --color-pink: #ec4899;
+  --color-indigo: #6366f1;
+}
+
+@media (prefers-color-scheme: dark) {
+  @theme {
+    --color-blue: #60a5fa;
+    --color-green: #34d399;
+    --color-yellow: #fbbf24;
+    --color-purple: #a78bfa;
+    --color-pink: #f472b6;
+    --color-indigo: #818cf8;
+  }
+}
+
+.dark {
+  --color-blue: #60a5fa;
+  --color-green: #34d399;
+  --color-yellow: #fbbf24;
+  --color-purple: #a78bfa;
+  --color-pink: #f472b6;
+  --color-indigo: #818cf8;
+}
+

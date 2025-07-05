@@ -1,0 +1,47 @@
+---
+import "../styles/global.css";
+import Nav from "../components/Nav.astro";
+
+type Props = {
+  title: string;
+  description: string;
+  featuredImage?: {
+    url: string;
+    alt: string;
+  };
+  headings?: { depth: number; slug: string; text: string }[];
+};
+
+const { title, description, headings = [] } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title} | Athiwat's Blog</title>
+  </head>
+  <body>
+    <Nav />
+    <main class="mt-16 py-16 container mx-auto">
+      <!-- breadcrumb -->
+      <div class="mb-8 max-w-prose mx-auto">
+        <a href="/blog" class="text-sm text-neutral-400">Blog</a>
+        <span class="mx-2 text-neutral-400">/</span>
+        <span class="text-sm text-neutral-400">{title}</span>
+      </div>
+      <div class="flex flex-col lg:flex-row gap-12">
+        <article
+          class="prose prose-neutral dark:prose-invert mx-auto"
+        >
+          <h1 class="text-3xl md:text-5xl font-bold leading-snug">{title}</h1>
+          <p class="text-lg md:text-2xl">{description}</p>
+          <slot />
+        </article>
+      </div>
+    </main>
+  </body>
+</html>
