@@ -42,15 +42,31 @@ const getPostUrl = (post: any, targetLocale: Locale) => {
             return (
               <a
                 href={getPostUrl(post, "en")}
-                class="flex items-baseline gap-4 no-underline text-inherit font-normal group transition-colors sm:truncate"
+                class="block no-underline text-inherit font-normal group transition-colors"
               >
-                <p class="sm:truncate text-neutral-100 group-hover:text-blue-600 transition-colors">
-                  {post.data.title}
-                </p>
-                <hr class="hidden sm:block min-w-7 flex-1 group-hover:border-blue-500 transition-colors" />
-                <p class="hidden sm:block shrink-0 text-sm group-hover:text-blue-500 transition-colors">
-                  {formatDate(post.data.date)}
-                </p>
+                <!-- Mobile Layout -->
+                <div class="flex flex-col gap-1 sm:hidden">
+                  <p class="text-neutral-100 group-hover:text-blue-600 transition-colors">
+                    {post.data.title}
+                  </p>
+                  <div class="flex items-center gap-2">
+                    <hr class="flex-1 group-hover:border-blue-500 transition-colors" />
+                    <p class="shrink-0 text-sm text-neutral-400 group-hover:text-blue-500 transition-colors">
+                      {formatDate(post.data.date)}
+                    </p>
+                  </div>
+                </div>
+                
+                <!-- Desktop Layout -->
+                <div class="hidden sm:flex sm:items-baseline sm:gap-4">
+                  <p class="text-neutral-100 group-hover:text-blue-600 transition-colors">
+                    {post.data.title}
+                  </p>
+                  <hr class="flex-1 group-hover:border-blue-500 transition-colors" />
+                  <p class="shrink-0 text-sm text-neutral-400 group-hover:text-blue-500 transition-colors">
+                    {formatDate(post.data.date)}
+                  </p>
+                </div>
               </a>
             );
           })
@@ -70,15 +86,31 @@ const getPostUrl = (post: any, targetLocale: Locale) => {
             return (
               <a
                 href={getPostUrl(post, "th")}
-                class="flex items-baseline gap-4 no-underline text-inherit font-normal group transition-colors sm:truncate"
+                class="block no-underline text-inherit font-normal group transition-colors"
               >
-                <p class="sm:truncate text-neutral-100 group-hover:text-blue-600 transition-colors">
-                  {post.data.title}
-                </p>
-                <hr class="hidden sm:block min-w-7 flex-1 group-hover:border-blue-500 transition-colors" />
-                <p class="hidden sm:block shrink-0 text-sm group-hover:text-blue-500 transition-colors">
-                  {formatDate(post.data.date)}
-                </p>
+                <!-- Mobile Layout -->
+                <div class="flex flex-col gap-1 sm:hidden">
+                  <p class="text-neutral-100 group-hover:text-blue-600 transition-colors">
+                    {post.data.title}
+                  </p>
+                  <div class="flex items-center gap-2">
+                    <hr class="flex-1 group-hover:border-blue-500 transition-colors" />
+                    <p class="shrink-0 text-sm text-neutral-400 group-hover:text-blue-500 transition-colors">
+                      {formatDate(post.data.date)}
+                    </p>
+                  </div>
+                </div>
+                
+                <!-- Desktop Layout -->
+                <div class="hidden sm:flex sm:items-baseline sm:gap-4">
+                  <p class="text-neutral-100 group-hover:text-blue-600 transition-colors">
+                    {post.data.title}
+                  </p>
+                  <hr class="flex-1 group-hover:border-blue-500 transition-colors" />
+                  <p class="shrink-0 text-sm text-neutral-400 group-hover:text-blue-500 transition-colors">
+                    {formatDate(post.data.date)}
+                  </p>
+                </div>
               </a>
             );
           })
