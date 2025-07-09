@@ -5,6 +5,7 @@ import Nav from "../components/Nav.astro";
 type Props = {
   title: string;
   description: string;
+  date: Date;
   featuredImage?: {
     url: string;
     alt: string;
@@ -12,7 +13,18 @@ type Props = {
   headings?: { depth: number; slug: string; text: string }[];
 };
 
-const { title, description, headings = [] } = Astro.props;
+const { title, description, date, headings = [] } = Astro.props;
+
+// Format date to "Jun 12, 2025" format
+// Handle timezone issue by creating a new Date object with local timezone
+const dateStr = date.toISOString().split('T')[0];
+const [year, month, day] = dateStr.split('-').map(Number);
+const localDate = new Date(year, month - 1, day); // month is 0-indexed
+const formattedDate = localDate.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric"
+});
 ---
 
 <html lang="en">
@@ -39,6 +51,10 @@ const { title, description, headings = [] } = Astro.props;
         >
           <h1 class="text-3xl md:text-5xl font-bold leading-snug">{title}</h1>
           <p class="text-lg md:text-2xl">{description}</p>
+          <!-- Date -->
+          <p class="text-sm text-neutral-400">
+            {formattedDate}
+          </p>
           <slot />
         </article>
       </div>

@@ -1,13 +1,13 @@
 ---
 import { type CollectionEntry } from "astro:content";
 import { render } from "astro:content";
-import BlogLayout from "../../layouts/BlogLayout.astro";
-import { getBlogStaticPaths, extractHeadings } from "../../utils/blogUtils";
+import BlogLayout from "../../../layouts/BlogLayout.astro";
+import { getBlogStaticPaths, extractHeadings } from "../../../utils/blogUtils";
 
 type Props = CollectionEntry<"blog">;
 
 export async function getStaticPaths() {
-  return await getBlogStaticPaths("en");
+  return await getBlogStaticPaths("th");
 }
 
 const post = Astro.props;

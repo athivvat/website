@@ -1,0 +1,89 @@
+---
+import { getLocalizedPosts, type Locale } from "../utils/i18n";
+
+interface Props {
+  locale: Locale;
+  currentPath: string;
+}
+
+const { locale, currentPath } = Astro.props;
+const englishPosts = await getLocalizedPosts("en");
+const thaiPosts = await getLocalizedPosts("th");
+
+// Helper function to format date correctly (avoiding timezone issues)
+const formatDate = (date: Date) => {
+  const dateStr = date.toISOString().split('T')[0];
+  const [year, month, day] = dateStr.split('-').map(Number);
+  const localDate = new Date(year, month - 1, day);
+  return localDate.toLocaleDateString("en-US", { month: "2-digit", day: "2-digit" });
+};
+
+// Determine base path for links
+const getPostUrl = (post: any, targetLocale: Locale) => {
+  const slug = post.id.replace(/^(en|th)\//, "");
+  return targetLocale === "en" ? `/blog/${slug}` : `/th/blog/${slug}`;
+};
+---
+
+<div class="prose prose-neutral dark:prose-invert mx-auto prose-hr:m-0 prose-p:m-0">
+  <header class="space-y-2 mb-16">
+    <h1 class="text-2xl font-medium m-0">Blog</h1>
+    <p class="m-0 text-neutral-400">Thoughts, ideas, and learning.</p>
+  </header>
+  
+  <!-- English Posts Section -->
+  {englishPosts.length > 0 && (
+    <div class="mb-12">
+      <h2 class="text-lg font-medium mb-6 text-neutral-300">[EN]</h2>
+      <div class="grid gap-4">
+        {
+          englishPosts.map((post) => {
+            const slug = post.id.replace(/^(en|th)\//, "");
+            return (
+              <a
+                href={getPostUrl(post, "en")}
+                class="flex items-baseline gap-4 no-underline text-inherit font-normal group transition-colors sm:truncate"
+              >
+                <p class="sm:truncate text-neutral-100 group-hover:text-blue-600 transition-colors">
+                  {post.data.title}
+                </p>
+                <hr class="hidden sm:block min-w-7 flex-1 group-hover:border-blue-500 transition-colors" />
+                <p class="hidden sm:block shrink-0 text-sm group-hover:text-blue-500 transition-colors">
+                  {formatDate(post.data.date)}
+                </p>
+              </a>
+            );
+          })
+        }
+      </div>
+    </div>
+  )}
+
+  <!-- Thai Posts Section -->
+  {thaiPosts.length > 0 && (
+    <div class="mb-12">
+      <h2 class="text-lg font-medium mb-6 text-neutral-300">[TH]</h2>
+      <div class="grid gap-4">
+        {
+          thaiPosts.map((post) => {
+            const slug = post.id.replace(/^(en|th)\//, "");
+            return (
+              <a
+                href={getPostUrl(post, "th")}
+                class="flex items-baseline gap-4 no-underline text-inherit font-normal group transition-colors sm:truncate"
+              >
+                <p class="sm:truncate text-neutral-100 group-hover:text-blue-600 transition-colors">
+                  {post.data.title}
+                </p>
+                <hr class="hidden sm:block min-w-7 flex-1 group-hover:border-blue-500 transition-colors" />
+                <p class="hidden sm:block shrink-0 text-sm group-hover:text-blue-500 transition-colors">
+                  {formatDate(post.data.date)}
+                </p>
+              </a>
+            );
+          })
+        }
+      </div>
+    </div>
+  )}
+</div> 
