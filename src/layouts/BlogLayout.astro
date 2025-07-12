@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Nav from "../components/Nav.astro";
+import { SEO } from "astro-seo";
 
 type Props = {
   title: string;
@@ -13,7 +14,7 @@ type Props = {
   headings?: { depth: number; slug: string; text: string }[];
 };
 
-const { title, description, date, headings = [] } = Astro.props;
+const { title, description, date, featuredImage, headings = [] } = Astro.props;
 
 // Format date to "Jun 12, 2025" format
 // Handle timezone issue by creating a new Date object with local timezone
@@ -25,6 +26,11 @@ const formattedDate = localDate.toLocaleDateString("en-US", {
   month: "short",
   day: "numeric"
 });
+
+// Create absolute URL for featured image
+// Use local development URL in dev mode, production URL in build
+const baseUrl = import.meta.env.DEV ? Astro.url.origin : Astro.site;
+const absoluteImageUrl = featuredImage?.url ? new URL(featuredImage.url, baseUrl).href : "";
 ---
 
 <html lang="en">
@@ -34,7 +40,37 @@ const formattedDate = localDate.toLocaleDateString("en-US", {
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <title>{title} | Athiwat's Blog</title>
+    <SEO
+      title={`${title} | Athiwat's Blog`}
+      description={description}
+      openGraph={{
+        basic: {
+          title: `${title} | Athiwat's Blog`,
+          type: "article",
+          image: absoluteImageUrl,
+        },
+        article: {
+          publishedTime: date.toISOString(),
+          authors: ["Athiwat Hirunworawongkun"],
+        },
+      }}
+      twitter={{
+        creator: "@athivvat",  
+      }}
+      extend={{
+        // extending the default link tags
+        link: [{ rel: "icon", href: "/favicon.ico" }],
+        // extending the default meta tags
+        meta: [
+          {
+            name: "twitter:image",
+            content: absoluteImageUrl,
+          },
+          { name: "twitter:title", content: `${title} | Athiwat's Blog` },
+          { name: "twitter:description", content: description },
+        ],
+      }}
+    />
   </head>
   <body>
     <Nav />
