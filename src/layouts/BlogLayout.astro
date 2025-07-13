@@ -55,7 +55,12 @@ const absoluteImageUrl = featuredImage?.url ? new URL(featuredImage.url, baseUrl
         },
       }}
       twitter={{
-        creator: "@athivvat",  
+        creator: "@athivvat",
+        card: "summary_large_image",
+        title: `${title} | Athiwat's Blog`,
+        site: "https://athivvat.co",
+        description: description,
+        image: absoluteImageUrl,
       }}
       extend={{
         // extending the default link tags
